@@ -3,13 +3,13 @@ import { useParams } from 'react-router-dom';
 import BannerService from '../../../services/BannerService';
 
 const BannerDetail = () => {
-    const { id } = useParams(); // Lấy ID từ URL
+    const { id } = useParams(); 
     const [banner, setBanner] = useState(null);
 
     useEffect(() => {
         const fetchBanner = async () => {
             try {
-                const response = await BannerService.show(id); // Gọi API để lấy banner theo ID
+                const response = await BannerService.show(id);
                 if (response.status) {
                     setBanner(response.banner);
                 } else {

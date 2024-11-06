@@ -30,9 +30,8 @@ import ProductstoreList from './../pages/backend/ProductStore/ProductStoreList';
 
 import ProductImageList from './../pages/backend/ProductImage/ProductImageList';
 
-import ConfigList from './../pages/backend/Config/ConfigList';
-
 import ContactList from './../pages/backend/Contact/ContactList';
+import ContactDetail from './../pages/backend/Contact/ContactDetail';
 
 import MenuList from '../pages/backend/Menu/MenuList';
 import MenuDetail from './../pages/backend/Menu/MenuDetail';
@@ -54,16 +53,10 @@ import UserUpdate from './../pages/backend/User/UserUpdate';
 import UserDetail from './../pages/backend/User/UserDetail';
 
 
-
-
-
-
-
 const RouterBackend = [
   { path: "", element: <Dashboard /> }, 
   
-  {
-    path: "banner",
+  {path: "banner",
       children: [
         { path: "", element: <BannerList /> },
         { path: "trash", element: <BannerTrash /> },
@@ -73,8 +66,7 @@ const RouterBackend = [
       ],
   },
 
-  { 
-    path: "brand", 
+  { path: "brand", 
       children: [
         { path: "", element: <BrandList /> },
         { path: "trash", element: <BrandTrash /> },
@@ -84,8 +76,7 @@ const RouterBackend = [
       ],
   },
 
-  { 
-    path: "category", 
+  { path: "category", 
       children: [
         { path: "", element: <CategoryList /> },
         { path: "trash", element: <CategoryTrash /> },
@@ -106,13 +97,22 @@ const RouterBackend = [
   },
 
   { path: "productsale", element: <ProductsaleList /> },
-  { path: "productstore", element: <ProductstoreList /> }, 
-  { path: "productimage", element: <ProductImageList /> }, 
-  { path: "config", element: <ConfigList /> },
-  { path: "contact", element: <ContactList /> },
 
-  { 
-    path: "menu", 
+  { path: "productstore", element: <ProductstoreList /> }, 
+
+  { path: "productimage", element: <ProductImageList /> }, 
+
+  { path: "contact", 
+    children: [
+        { path: "", element: <ContactList /> },
+        { path: "id", element : <ContactDetail />},
+        // { path: "create", element: <ConfigCreate /> },
+        // { path: "update/:id", element: <ConfigUpdate /> },
+        // { path: "show/:id", element: <ConfigDetail /> },
+      ],
+  },
+
+  { path: "menu", 
     children: [
         { path: "", element: <MenuList /> },
         { path: "trash", element: <MenuTrash /> },
@@ -126,8 +126,7 @@ const RouterBackend = [
   { path: "topic", element: <TopicList /> },
   { path: "post", element: <PostList /> },
 
-  { 
-    path: "user", 
+  { path: "user", 
     children: [
         { path: "", element: <UserList /> },
         { path: "trash", element: <UserTrash /> },

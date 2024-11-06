@@ -23,12 +23,6 @@ use App\Http\Controllers\Frontend\ProductController as FrontendProductController
 use App\Http\Controllers\Frontend\UserController as FrontendUserController;
 
 
-Route::middleware(['web'])->group(function () {
-    // Route::post('/register', [FrontendUserController::class, 'register']);
-    Route::post('/login', [FrontendUserController::class, 'login']);
-    // Route::get('/auth', [FrontendUserController::class, 'auth']);
-});
-
 // đăng ký , đăng nhập
 Route::post('/register',[FrontendUserController::class,'register']);
 Route::post('/login',[FrontendUserController::class,'login']);
@@ -128,6 +122,7 @@ Route::prefix('contact')->group(function(){
 	Route::get('/trash',[ContactController::class, 'trash']);
 	Route::get('/show/{id}',[ContactController::class, 'show']);
     Route::post('/reply/{id}',[ContactController::class, 'reply']);
+    Route::post('/store',[ContactController::class, 'store']);
     Route::get('/status/{id}',[ContactController::class, 'status']);
     Route::get('/delete/{id}',[ContactController::class, 'delete']);
     Route::get('/restore/{id}',[ContactController::class, 'restore']);

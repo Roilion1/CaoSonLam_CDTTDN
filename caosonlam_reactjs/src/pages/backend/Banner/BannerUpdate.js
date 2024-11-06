@@ -4,8 +4,8 @@ import BannerService from '../../../services/BannerService';
 import axios from 'axios';
 
 const BannerUpdate = () => {
-    const { id } = useParams(); // Lấy ID từ URL
-    const navigate = useNavigate(); // Khởi tạo useNavigate
+    const { id } = useParams(); 
+    const navigate = useNavigate(); 
     const [banner, setBanner] = useState({
         name: '',
         position: '',

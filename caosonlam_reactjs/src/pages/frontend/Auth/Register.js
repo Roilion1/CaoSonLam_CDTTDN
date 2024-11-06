@@ -4,15 +4,15 @@ import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const [form, setForm] = useState({
-        name: '',         // Tên người dùng
-        fullname: '',     // Tên đầy đủ
-        email: '',        // Email
-        password: '',     // Mật khẩu
-        phone: '',        // Số điện thoại
-        gender: '',       // Giới tính
-        address: '',      // Địa chỉ
-        thumbnail: null,  // Hình đại diện
-        roles: 'customer',// Vai trò mặc định là khách hàng
+        name: '',
+        fullname: '',
+        email: '',
+        password: '',
+        phone: '',
+        gender: '',
+        address: '',
+        thumbnail: null,
+        roles: 'customer',
     });
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
@@ -48,7 +48,7 @@ const Register = () => {
 
         try {
             await AuthService.register(formData);
-            navigate('/login');
+            navigate('/login'); // Sau khi đăng ký thành công, điều hướng đến trang login
         } catch (error) {
             setMessage('Đăng ký thất bại, vui lòng thử lại');
             console.error(error);
@@ -154,17 +154,29 @@ const Register = () => {
                         name="address"
                         value={form.address}
                         onChange={handleChange}
+                        required
                         className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
 
-                <button
-                    type="submit"
-                    className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                    Đăng Ký
-                </button>
+                <div className="form-group">
+                    <button
+                        type="submit"
+                        className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
+                    >
+                        Đăng ký
+                    </button>
+                </div>
             </form>
+
+            <div className="mt-4 text-center">
+                <p className="text-gray-600">
+                    Đã có tài khoản?{' '}
+                    <a href="/login" className="text-blue-500 hover:underline">
+                        Đăng nhập
+                    </a>
+                </p>
+            </div>
         </div>
     );
 };

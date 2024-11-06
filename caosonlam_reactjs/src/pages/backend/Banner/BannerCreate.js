@@ -4,13 +4,13 @@ import BannerService from '../../../services/BannerService';
 
 function BannerCreate() {
     const [banner, setBanner] = useState({
-        name: '',       // Thêm trường name
-        link: '',       // Thêm trường link
-        description: '', // Thêm trường description
+        name: '',       
+        link: '',      
+        description: '', 
         image: null,
         position: 'slideshow',
-        sort_order: '',  // Thêm trường sort_order
-        status: '',      // Có thể là 'active' hoặc 'inactive'
+        sort_order: '',  
+        status: '',     
     });
     const [error, setError] = useState('');
     const navigate = useNavigate();
@@ -32,13 +32,13 @@ function BannerCreate() {
     const handleAddBanner = async (e) => {
         e.preventDefault();
 
-        const formData = new FormData(); // Tạo form data để gửi kèm hình ảnh
-        formData.append('name', banner.name);  // Gửi trường name
-        formData.append('link', banner.link);  // Gửi trường link
-        formData.append('description', banner.description);  // Gửi trường description
-        formData.append('image', banner.image); // Gửi hình ảnh với tên image
+        const formData = new FormData();
+        formData.append('name', banner.name);  
+        formData.append('link', banner.link); 
+        formData.append('description', banner.description); 
+        formData.append('image', banner.image);
         formData.append('position', banner.position);
-        formData.append('sort_order', banner.sort_order);  // Gửi trường sort_order
+        formData.append('sort_order', banner.sort_order); 
         formData.append('status', banner.status);
 
         try {

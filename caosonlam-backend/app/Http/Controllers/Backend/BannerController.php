@@ -59,7 +59,6 @@ class BannerController extends Controller
         }
         return response()->json($result);
     }
-
     public function store(StoreBannerRequest $request)
     {
         $banner = new Banner();

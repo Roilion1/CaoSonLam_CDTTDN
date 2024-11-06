@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Contact;
-// use App\Http\Requests\StoreContactRequest;
-// use App\Http\Requests\UpdateContactRequest;
+use App\Http\Requests\StoreContactRequest;
+use App\Http\Requests\UpdateContactRequest;
 use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
@@ -59,35 +59,34 @@ class ContactController extends Controller
         return response()->json($result);
     }
 
-    public function store(Request $request)
+    public function store(StoreContactRequest $request)
     {
         $contact = new Contact();
         $contact->name = $request->name;
         $contact->email = $request->email;
         $contact->phone = $request->phone;
         $contact->title = $request->title;
-        $contact->content = $request->contents;
+        $contact->content = $request->content;
         $contact->status = $request->status;
-        $contact->user_id = Auth::id() ?? 1;
-        $contact->created_at = date('Y-m-d H:i:s');
+        $contact->user_id = $request->user_id;  // Gán user_id
+        $contact->created_at = now();
 
         if ($contact->save()) {
-            $result = [
+            return response()->json([
                 'status' => true,
                 'message' => 'Thêm thành công',
                 'contact' => $contact
-            ];
+            ]);
         } else {
-            $result = [
+            return response()->json([
                 'status' => false,
                 'message' => 'Không thể thêm',
                 'contact' => null
-            ];
+            ], 500);
         }
-        return response()->json($result);
     }
 
-    public function update(Request $request, string $id)
+    public function update(UpdateContactRequest $request, string $id)
     {
         $contact = Contact::find($id);
         if (!$contact) {
@@ -160,5 +159,68 @@ class ContactController extends Controller
                 'message' => 'Không thể xóa liên hệ'
             ], 500);
         }
+    }
+    public function delete($id)
+    {
+        $contact = Contact::find($id);
+        if ($contact == null) {
+            $result = [
+                'status' => false,
+                'message' => 'Không tìm thấy thông tin',
+                'contact' => null
+            ];
+            return response()->json($result);
+        }
+
+        $contact->status = 0; // Đánh dấu là đã xóa (status = 0)
+        $contact->updated_by = Auth::id() ?? 1; // Người thực hiện cập nhật
+        $contact->updated_at = date('Y-m-d H:i:s'); // Thời gian cập nhật
+
+        if ($contact->save()) {
+            $result = [
+                'status' => true,
+                'message' => 'Thay đổi thành công',
+                'contact' => $contact
+            ];
+        } else {
+            $result = [
+                'status' => false,
+                'message' => 'Không thể thay đổi',
+                'contact' => null
+            ];
+        }
+        return response()->json($result);
+    }
+
+    public function restore($id)
+    {
+        $contact = Contact::find($id);
+        if ($contact == null) {
+            $result = [
+                'status' => false,
+                'message' => 'Không tìm thấy thông tin',
+                'contact' => null
+            ];
+            return response()->json($result);
+        }
+
+        $contact->status = 2; // Đánh dấu trạng thái phục hồi (status = 2)
+        $contact->updated_by = Auth::id() ?? 1; // Người thực hiện cập nhật
+        $contact->updated_at = date('Y-m-d H:i:s'); // Thời gian cập nhật
+
+        if ($contact->save()) {
+            $result = [
+                'status' => true,
+                'message' => 'Thay đổi thành công',
+                'contact' => $contact
+            ];
+        } else {
+            $result = [
+                'status' => false,
+                'message' => 'Không thể thay đổi',
+                'contact' => null
+            ];
+        }
+        return response()->json($result);
     }
 }

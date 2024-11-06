@@ -19,11 +19,12 @@ const Login = () => {
     };
 
     const handleLogin = async (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
         try {
             const response = await AuthService.login(form.email, form.password);
             console.log('Login successful:', response);
-            navigate('/'); 
+            // Redirect to home page or other pages after login
+            navigate('/'); // Hoặc trang nào bạn muốn chuyển đến sau khi đăng nhập thành công
         } catch (error) {
             console.error('Error during login:', error);
             setMessage('Đăng nhập không thành công. Vui lòng kiểm tra lại.');
